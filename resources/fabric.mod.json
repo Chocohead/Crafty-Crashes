@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "not-that-cc",
+	"version": "${version}",
+
+	"name": "Crafty Crashes",
+	"description": "Like before but nothing like before",
+	"authors": [
+		"Chocohead"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/crafty-crashes",
+		"sources": "https://github.com/Chocohead/Crafty-Crashes",
+		"issues": "https://github.com/Chocohead/Crafty-Crashes/issues"
+	},
+	"license": "MPL-2.0",
+
+	"environment": "*",
+	"mixins": [
+		"cc.mixins.json"
+	]
+}

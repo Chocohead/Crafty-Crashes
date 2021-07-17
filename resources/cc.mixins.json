@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "com.chocohead.cc.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"CrashReportMixin",
+		"CrashReportSectionMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
