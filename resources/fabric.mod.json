@@ -17,13 +17,9 @@
 
 	"environment": "*",
 	"depends": {
-		"fabricloader": ">=0.7",
-		"mm": ">=2.0"
+		"fabricloader": ">=0.7"
 	},
 	"entrypoints": {
-		"mm:early_risers": [
-			"com.chocohead.cc.EarlyRiser"
-		]
 	},
 	"mixins": [
 		"cc.mixins.json"
