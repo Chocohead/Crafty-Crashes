@@ -1,7 +1,5 @@
 package com.chocohead.cc;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +8,6 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.Opcodes;
 
 import org.spongepowered.asm.mixin.Mixins;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -77,14 +71,10 @@ public class SMAPper {
 					ClassInfo info = ClassInfo.fromCache(className);
 
 					if (info != null && hasMixins(info)) {
-						try (InputStream in = SMAPper.class.getResourceAsStream('/' + className.replace('.', '/') + ".class")) {
-							String value = findSource(in);
+						String source = SourcePool.get(className);
 
-							if (value != null && value.startsWith("SMAP")) {
-								smap = SMAP.forResolved(value);
-							}
-						} catch (IOException e) {
-							throw new RuntimeException("Error finding class source of " + className, e);
+						if (source != null && source.startsWith("SMAP")) {
+							smap = SMAP.forResolved(source);
 						}
 					}
 				}
@@ -115,18 +105,5 @@ public class SMAPper {
 		}
 
 		return "";
-	}
-
-	private static String findSource(InputStream in) throws IOException {
-		String[] out = new String[1];
-
-		new ClassReader(in).accept(new ClassVisitor(Opcodes.ASM7) {
-			@Override
-			public void visitSource(String source, String debug) {
-				out[0] = debug;
-			}
-		}, ClassReader.SKIP_CODE);
-
-		return out[0];
 	}
 }
