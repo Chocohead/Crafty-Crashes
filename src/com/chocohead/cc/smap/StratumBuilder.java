@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
 import it.unimi.dsi.fastutil.ints.Int2ReferenceLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
 import it.unimi.dsi.fastutil.ints.Int2ReferenceOpenHashMap;
@@ -23,8 +21,8 @@ class StratumBuilder {
 		this.id = id;
 	}
 
-	void addFile(int id, String name, String path, IMixinInfo mixin) throws IOException {
-		if (files.put(id, new FileInfo(name, path, mixin)) != null) {
+	void addFile(int id, String name, String path) throws IOException {
+		if (files.put(id, new FileInfo(name, path)) != null) {
 			throw new InvalidFormat("Duplicate file ID " + id + " for " + this.id + " stratum");
 		}
 	}

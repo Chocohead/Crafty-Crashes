@@ -1,15 +1,11 @@
 package com.chocohead.cc.smap;
 
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
 public class FileInfo {
 	public final String name, path;
-	public final IMixinInfo mixin;
 
-	public FileInfo(String name, String path, IMixinInfo mixin) {
+	public FileInfo(String name, String path) {
 		this.name = name;
 		this.path = path;
-		this.mixin = mixin;
 	}
 
 	public String getBestName() {
@@ -17,11 +13,7 @@ public class FileInfo {
 	}
 
 	public String getBestName(String finalOption) {
-		if (path != null) {
-			return mixin != null ? path + " [" + mixin.getConfig().getName() + ']' : path;
-		} else {
-			return name != null && !"null".equals(name) ? name : finalOption;
-		}
+		return path != null ? path : name != null && !"null".equals(name) ? name : finalOption;
 	}
 
 	@Override

@@ -12,21 +12,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
 public class SMAP {
 	public final String generatedFileName;
 	private final String defaultStratum;
 	private final Map<String, Stratum> stratums = new HashMap<>();
 	private final Map<String, List<String>> vendorSections = new HashMap<>();
 
-	public static SMAP forResolved(Reader in, Map<String, IMixinInfo> unmapper) throws IOException {
-		return new SMAP(in, unmapper);
+	public static SMAP forResolved(Reader in) throws IOException {
+		return new SMAP(in);
 	}
 
-	public static SMAP forResolved(String in, Map<String, IMixinInfo> unmapper) {
+	public static SMAP forResolved(String in) {
 		try {
-			return new SMAP(new StringReader(in), unmapper);
+			return new SMAP(new StringReader(in));
 		} catch (InvalidFormat | EOFException e) {
 			throw new IllegalArgumentException(e.getMessage(), e);
 		} catch (IOException e) {
@@ -34,7 +32,7 @@ public class SMAP {
 		}
 	}
 
-	private SMAP(Reader in, Map<String, IMixinInfo> unmapper) throws IOException {
+	private SMAP(Reader in) throws IOException {
 		try (SMAPReader reader = new SMAPReader(in)) {
 			String first = reader.nextLine();
 			if (!"SMAP".equals(first)) {
@@ -77,9 +75,8 @@ public class SMAP {
 						String name = reader.chompString();
 						reader.ensureLineComplete();
 						String path = hasPath ? reader.nextLine() : null;
-						IMixinInfo mixin = hasPath && path.endsWith(".java") ? unmapper.get(path.substring(0, path.length() - 5)) : null;
 
-						stratum.addFile(id, name, path, mixin);
+						stratum.addFile(id, name, path);
 						reader.ensureLineComplete();
 					}
 					break;

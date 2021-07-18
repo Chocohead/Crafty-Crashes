@@ -19,6 +19,6 @@ abstract class CrashReportSectionMixin {
 	@Inject(method = "initStackTrace",
 			at = @At(value = "INVOKE", target = "Ljava/lang/System;arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V", remap = false, shift = Shift.AFTER))
 	private void fixCause(CallbackInfoReturnable<Integer> call) {
-		SMAPper.apply(stackTrace, "java.");
+		SMAPper.apply(stackTrace, "java.", "sun.", "net.fabricmc.loader.", "com.mojang.authlib.");
 	}
 }

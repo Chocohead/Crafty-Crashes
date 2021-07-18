@@ -22,6 +22,6 @@ abstract class CrashReportMixin {
 	@Inject(method = "<init>",
 			at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;cause:Ljava/lang/Throwable;", opcode = Opcodes.PUTFIELD, shift = Shift.AFTER))
 	private void fixCause(CallbackInfo call) {
-		SMAPper.apply(cause, "java.");
+		SMAPper.apply(cause, "java.", "sun.", "net.fabricmc.loader.", "com.mojang.authlib.");
 	}
 }
