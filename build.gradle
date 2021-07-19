@@ -21,7 +21,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = 'Crafty-Crashes'
-version = '0.5'
+version = '1.0'
 
 repositories {
 	maven { 

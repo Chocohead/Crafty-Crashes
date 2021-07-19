@@ -62,10 +62,10 @@ public class SMAPper {
 				smap = cache.get(className);
 			}
 
-			if (smap != null) {
+			if (smap != null && smap.generatedFileName.equals(element.getFileName())) {
 				LineInfo realLine = smap.getDefaultStratum().mapLine(element.getLineNumber());
 
-				if (realLine != null && smap.generatedFileName.equals(element.getFileName())) {
+				if (realLine != null && !realLine.file.name.equals(element.getFileName())) {
 					elements[i] = new StackTraceElement(element.getClassName(), element.getMethodName(), realLine.file.getBestName("Unspecified?").concat(findMixin(realLine.file)), realLine.line);
 					modified = true;
 				}
